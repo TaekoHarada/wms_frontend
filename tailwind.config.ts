@@ -8,6 +8,11 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["Inter", "Noto Sans JP", "sans-serif"], // シンプル＆モダン
+        serif: ["Shippori Mincho", "serif"], // 高級感
+        rounded: ["M PLUS Rounded 1c", "sans-serif"], // 親しみやすいデザイン
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
