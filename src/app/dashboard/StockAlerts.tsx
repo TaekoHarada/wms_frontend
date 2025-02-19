@@ -1,9 +1,13 @@
+"use client";
+import useSWR from "swr";
+import { fetchLowStockItems } from "@/app/lib/api";
+
 export default function StockAlerts() {
-  const lowStockItems = [
-    { id: 1, name: "ノートPC", quantity: 2 },
-    { id: 2, name: "スマホ", quantity: 1 },
-    { id: 3, name: "ヘッドフォン", quantity: 5 },
-  ];
+  const { data, error } = useSWR("/low-stock", fetchLowStockItems);
+
+  if (error)
+    return <div className="text-red-500">データの取得に失敗しました</div>;
+  if (!data) return <div>データを読み込み中...</div>;
 
   return (
     <div className="bg-white p-6 shadow-md rounded-lg">
@@ -11,7 +15,7 @@ export default function StockAlerts() {
         ⚠️ 在庫アラート
       </h2>
       <ul className="space-y-2">
-        {lowStockItems.map((item) => (
+        {data.map((item: any) => (
           <li
             key={item.id}
             className="flex justify-between p-2 bg-gray-100 rounded-md"

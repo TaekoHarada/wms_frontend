@@ -1,15 +1,13 @@
+"use client";
+import useSWR from "swr";
+import { fetchRecentStockChanges } from "@/app/lib/api";
+
 export default function RecentStockChanges() {
-  const stockData = [
-    { id: 1, item: "ノートPC", type: "入庫", quantity: 10, date: "2025-02-15" },
-    { id: 2, item: "スマホ", type: "出庫", quantity: 5, date: "2025-02-14" },
-    {
-      id: 3,
-      item: "ヘッドフォン",
-      type: "入庫",
-      quantity: 8,
-      date: "2025-02-13",
-    },
-  ];
+  const { data, error } = useSWR("/recent-stock", fetchRecentStockChanges);
+
+  if (error)
+    return <div className="text-red-500">データの取得に失敗しました</div>;
+  if (!data) return <div>データを読み込み中...</div>;
 
   return (
     <div className="bg-white p-6 shadow-md rounded-lg">
@@ -17,20 +15,22 @@ export default function RecentStockChanges() {
         📋 最近の入庫・出庫
       </h2>
       <ul className="space-y-2">
-        {stockData.map((entry) => (
+        {data.map((entry: any) => (
           <li
             key={entry.id}
             className="flex justify-between p-2 bg-gray-100 rounded-md"
           >
-            <span>{entry.item}</span>
+            <span>{entry.product_name}</span>
             <span
               className={`font-semibold ${
-                entry.type === "入庫" ? "text-green-600" : "text-red-600"
+                entry.type === "IN" ? "text-green-600" : "text-red-600"
               }`}
             >
               {entry.type} ({entry.quantity})
             </span>
-            <span className="text-gray-500">{entry.date}</span>
+            <span className="text-gray-500">
+              {new Date(entry.transaction_date).toLocaleDateString()}
+            </span>
           </li>
         ))}
       </ul>

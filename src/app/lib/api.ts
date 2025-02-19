@@ -63,7 +63,6 @@ export async function updateProduct(
 export async function fetchCategories() {
   try {
     const response = await axiosInstance.get("/categories");
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("カテゴリ一覧の取得に失敗:", error);
@@ -111,6 +110,50 @@ export async function fetchStockHistory() {
     return response.data;
   } catch (error) {
     console.error("在庫履歴の取得に失敗:", error);
+    throw error;
+  }
+}
+
+// ✅ 在庫サマリー取得 API
+export async function fetchStockSummary() {
+  try {
+    const response = await axiosInstance.get("/summary");
+    return response.data;
+  } catch (error) {
+    console.error("在庫サマリーの取得に失敗:", error);
+    throw error;
+  }
+}
+
+// ✅ 在庫切れ商品取得 API
+export async function fetchLowStockItems() {
+  try {
+    const response = await axiosInstance.get("/summary/low-stock");
+    return response.data;
+  } catch (error) {
+    console.error("在庫切れ商品の取得に失敗:", error);
+    throw error;
+  }
+}
+
+// ✅ 最近の入庫・出庫履歴取得 API
+export async function fetchRecentStockChanges() {
+  try {
+    const response = await axiosInstance.get("/summary/recent-stock");
+    return response.data;
+  } catch (error) {
+    console.error("最近の在庫履歴の取得に失敗:", error);
+    throw error;
+  }
+}
+
+// ✅ 月ごとの在庫推移取得 API
+export async function fetchStockTrends() {
+  try {
+    const response = await axiosInstance.get("/summary/stock-trends");
+    return response.data;
+  } catch (error) {
+    console.error("在庫推移データの取得に失敗:", error);
     throw error;
   }
 }
