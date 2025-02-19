@@ -1,6 +1,6 @@
 "use client";
 import useSWR from "swr";
-import { fetchProducts } from "../lib/api";
+import { fetchProducts } from "@/app/lib/api";
 import Link from "next/link";
 
 export default function ProductList() {

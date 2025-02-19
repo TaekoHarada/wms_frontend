@@ -37,3 +37,20 @@ export async function addProduct(product: {
     throw error;
   }
 }
+
+// ✅ 商品更新 API
+export async function updateProduct(
+  id: string,
+  updatedData: { name: string; sku: string; stock: number; category: string }
+) {
+  try {
+    const response = await axiosInstance.put(
+      `/products/${id}/edit`,
+      updatedData
+    );
+    return response.data;
+  } catch (error) {
+    console.error(`商品 ${id} の更新に失敗:`, error);
+    throw error;
+  }
+}
