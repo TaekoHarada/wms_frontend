@@ -59,7 +59,7 @@ export default function StockEdit() {
       alert("✅ 在庫を更新しました");
       router.push("/stock");
     } catch (error) {
-      alert("❌ 在庫更新に失敗しました");
+      console.error("Stock update error:", error);
     }
   };
 

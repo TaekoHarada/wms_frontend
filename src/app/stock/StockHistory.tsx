@@ -2,7 +2,6 @@
 import useSWR from "swr";
 import { fetchStockHistory } from "@/app/lib/api";
 import { useState } from "react";
-import Breadcrumbs from "@/components/Breadcrumbs";
 
 export default function StockHistory() {
   const { data: stockHistory, error } = useSWR(

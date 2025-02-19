@@ -1,5 +1,5 @@
 import NavItem from "./NavItem";
-import { Home, Package, Archive, FileText } from "lucide-react";
+import { Home, Package, Archive } from "lucide-react";
 
 const menuItems = [
   { name: "サマリー", href: "/dashboard", icon: <Home size={20} /> },

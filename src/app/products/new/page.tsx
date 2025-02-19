@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { addProduct, fetchCategories } from "@/app/lib/api";
 import useSWR from "swr";
@@ -9,10 +9,7 @@ export default function ProductCreate() {
   const router = useRouter();
 
   // ✅ カテゴリー一覧を取得
-  const { data: categories, error: categoryError } = useSWR(
-    "/categories",
-    fetchCategories
-  );
+  const { data: categories } = useSWR("/categories", fetchCategories);
 
   // ✅ フォームの状態を管理
   const [formData, setFormData] = useState({

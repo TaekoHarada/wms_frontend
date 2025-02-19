@@ -1,7 +1,6 @@
 "use client";
 
 import ProductList from "./ProductList";
-import ProductFilters from "./ProductFilters";
 import Link from "next/link";
 
 export default function ProductsPage() {
