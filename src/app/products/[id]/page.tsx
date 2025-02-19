@@ -19,6 +19,9 @@ export default function ProductDetail() {
     <div className="p-6">
       <Breadcrumbs />
       <div className="bg-white p-6 shadow-md rounded-lg">
+        <h2 className="text-lg font-semibold text-gray-700 mb-4">
+          📦 商品詳細
+        </h2>
         <p>
           <span className="font-semibold">商品ID:</span> {data.id}
         </p>
@@ -29,10 +32,15 @@ export default function ProductDetail() {
           <span className="font-semibold">SKU:</span> {data.sku}
         </p>
         <p>
-          <span className="font-semibold">在庫数:</span> {data.stock}
+          <span className="font-semibold">在庫数:</span> {data.quantity}
         </p>
         <p>
-          <span className="font-semibold">カテゴリー:</span> {data.category}
+          <span className="font-semibold">カテゴリー:</span>{" "}
+          {data.category || "未分類"} （ID: {data.category_id || "N/A"}）
+        </p>
+        <p>
+          <span className="font-semibold">保管場所:</span>{" "}
+          {data.location || "未設定"}
         </p>
       </div>
 

@@ -2,14 +2,13 @@ import NavItem from "./NavItem";
 import { Home, Package, Archive, FileText } from "lucide-react";
 
 const menuItems = [
-  { name: "Dashboard", href: "/dashboard", icon: <Home size={20} /> },
-  { name: "Products", href: "/products", icon: <Package size={20} /> },
+  { name: "サマリー", href: "/dashboard", icon: <Home size={20} /> },
+  { name: "商品管理", href: "/products", icon: <Package size={20} /> },
   {
-    name: "Stock Management",
-    href: "/stock/update",
+    name: "在庫管理",
+    href: "/stock",
     icon: <Archive size={20} />,
   },
-  { name: "Logs", href: "/logs", icon: <FileText size={20} /> },
 ];
 
 export default function Sidebar() {
