@@ -12,7 +12,10 @@ export default function ProductFilters({
   const [categoryId, setCategoryId] = useState(0);
 
   // ✅ カテゴリー一覧を取得
-  const { data: categories, error } = useSWR("/categories", fetchCategories);
+  const { data: categories, error } = useSWR<{ id: number; name: string }[]>(
+    "/categories",
+    fetchCategories
+  );
 
   if (error)
     return <div className="text-red-500">カテゴリーの取得に失敗しました</div>;
@@ -35,7 +38,7 @@ export default function ProductFilters({
         onChange={(e) => setCategoryId(Number(e.target.value))}
       >
         <option value={0}>全カテゴリー</option>
-        {categories?.map((cat: any) => (
+        {categories?.map((cat: { id: number; name: string }) => (
           <option key={cat.id} value={cat.id}>
             {cat.name}
           </option>

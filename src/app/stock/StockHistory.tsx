@@ -31,20 +31,33 @@ export default function StockHistory() {
   };
 
   // ✅ フィルタリング処理
-  const filteredHistory = stockHistory.filter((entry: any) => {
-    const matchType = filterType ? entry.type === filterType : true;
-    const matchKeyword =
-      entry.product_name?.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-      entry.sku?.toLowerCase().includes(searchKeyword.toLowerCase());
+  const filteredHistory = stockHistory.filter(
+    (entry: {
+      type: string;
+      product_name?: string;
+      sku?: string;
+      transaction_date: string;
+    }) => {
+      const matchType = filterType ? entry.type === filterType : true;
+      const matchKeyword =
+        entry.product_name
+          ?.toLowerCase()
+          .includes(searchKeyword.toLowerCase()) ||
+        entry.sku?.toLowerCase().includes(searchKeyword.toLowerCase());
 
-    const entryDate = new Date(entry.transaction_date);
-    entryDate.setHours(0, 0, 0, 0); // `00:00:00` にリセットして比較しやすくする
+      const entryDate = new Date(entry.transaction_date);
+      entryDate.setHours(0, 0, 0, 0); // `00:00:00` にリセットして比較しやすくする
 
-    const matchStartDate = startDate ? entryDate >= parseDate(startDate) : true;
-    const matchEndDate = endDate ? entryDate <= parseDate(endDate, true) : true;
+      const matchStartDate = startDate
+        ? entryDate >= parseDate(startDate)
+        : true;
+      const matchEndDate = endDate
+        ? entryDate <= parseDate(endDate, true)
+        : true;
 
-    return matchType && matchKeyword && matchStartDate && matchEndDate;
-  });
+      return matchType && matchKeyword && matchStartDate && matchEndDate;
+    }
+  );
 
   return (
     <div>
@@ -94,23 +107,32 @@ export default function StockHistory() {
             </tr>
           </thead>
           <tbody>
-            {filteredHistory.map((entry: any) => (
-              <tr key={entry.id} className="border-b hover:bg-gray-100">
-                <td className="p-2">{entry.product_name || "不明"}</td>
-                <td className="p-2">{entry.sku || "不明"}</td>
-                <td
-                  className={`p-2 font-bold ${
-                    entry.type === "IN" ? "text-green-600" : "text-red-600"
-                  }`}
-                >
-                  {entry.type === "IN" ? "入庫" : "出庫"}
-                </td>
-                <td className="p-2 text-right">{entry.quantity}</td>
-                <td className="p-2">
-                  {new Date(entry.transaction_date).toLocaleString()}
-                </td>
-              </tr>
-            ))}
+            {filteredHistory.map(
+              (entry: {
+                id: string;
+                product_name?: string;
+                sku?: string;
+                type: string;
+                quantity: number;
+                transaction_date: string;
+              }) => (
+                <tr key={entry.id} className="border-b hover:bg-gray-100">
+                  <td className="p-2">{entry.product_name || "不明"}</td>
+                  <td className="p-2">{entry.sku || "不明"}</td>
+                  <td
+                    className={`p-2 font-bold ${
+                      entry.type === "IN" ? "text-green-600" : "text-red-600"
+                    }`}
+                  >
+                    {entry.type === "IN" ? "入庫" : "出庫"}
+                  </td>
+                  <td className="p-2 text-right">{entry.quantity}</td>
+                  <td className="p-2">
+                    {new Date(entry.transaction_date).toLocaleString()}
+                  </td>
+                </tr>
+              )
+            )}
           </tbody>
         </table>
       </div>

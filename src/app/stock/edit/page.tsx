@@ -24,7 +24,7 @@ export default function StockEdit() {
   // ✅ 商品選択時に在庫数をセット
   const handleProductChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedProduct = products.find(
-      (p: any) => p.id === Number(e.target.value)
+      (p: { id: number; quantity: number }) => p.id === Number(e.target.value)
     );
     setFormData({ ...formData, product_id: e.target.value });
     setCurrentStock(selectedProduct ? selectedProduct.quantity : null);
@@ -82,11 +82,19 @@ export default function StockEdit() {
           >
             <option value="">商品を選択</option>
             {products &&
-              products.map((product: any) => (
-                <option key={product.id} value={product.id}>
-                  {product.name} (SKU: {product.sku}) - 在庫: {product.quantity}
-                </option>
-              ))}
+              products.map(
+                (product: {
+                  id: number;
+                  name: string;
+                  sku: string;
+                  quantity: number;
+                }) => (
+                  <option key={product.id} value={product.id}>
+                    {product.name} (SKU: {product.sku}) - 在庫:{" "}
+                    {product.quantity}
+                  </option>
+                )
+              )}
           </select>
         </div>
         {currentStock !== null && (

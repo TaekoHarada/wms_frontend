@@ -15,7 +15,7 @@ export default function StockAlerts() {
         ⚠️ 在庫アラート
       </h2>
       <ul className="space-y-2">
-        {data.map((item: any) => (
+        {data.map((item: { id: number; name: string; quantity: number }) => (
           <li
             key={item.id}
             className="flex justify-between p-2 bg-gray-100 rounded-md"

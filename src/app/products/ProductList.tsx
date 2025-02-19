@@ -15,16 +15,26 @@ export default function ProductList() {
   if (!data) return <div>データを読み込み中...</div>;
 
   // ✅ フィルタリング処理
-  const filteredProducts = data.filter((product: any) => {
-    const matchesQuery =
-      product.name.toLowerCase().includes(query.toLowerCase()) ||
-      product.sku.toLowerCase().includes(query.toLowerCase());
+  const filteredProducts = data.filter(
+    (product: {
+      id: number;
+      name: string;
+      sku: string;
+      quantity: number;
+      category_id: number;
+      category?: string;
+      location?: string;
+    }) => {
+      const matchesQuery =
+        product.name.toLowerCase().includes(query.toLowerCase()) ||
+        product.sku.toLowerCase().includes(query.toLowerCase());
 
-    const matchesCategory =
-      categoryId > 0 ? product.category_id === categoryId : true;
+      const matchesCategory =
+        categoryId > 0 ? product.category_id === categoryId : true;
 
-    return matchesQuery && matchesCategory;
-  });
+      return matchesQuery && matchesCategory;
+    }
+  );
 
   return (
     <div className="bg-white p-6 shadow-md rounded-lg">
@@ -49,22 +59,32 @@ export default function ProductList() {
         </thead>
         <tbody>
           {filteredProducts.length > 0 ? (
-            filteredProducts.map((product: any) => (
-              <tr key={product.id} className="border-b hover:bg-gray-50">
-                <td className="p-2">
-                  <Link
-                    href={`/products/${product.id}`}
-                    className="text-blue-600 hover:underline"
-                  >
-                    {product.name}
-                  </Link>
-                </td>
-                <td className="p-2">{product.sku}</td>
-                <td className="p-2 text-right">{product.quantity}</td>
-                <td className="p-2">{product.category || "未分類"}</td>
-                <td className="p-2">{product.location || "未設定"}</td>
-              </tr>
-            ))
+            filteredProducts.map(
+              (product: {
+                id: number;
+                name: string;
+                sku: string;
+                quantity: number;
+                category_id: number;
+                category?: string;
+                location?: string;
+              }) => (
+                <tr key={product.id} className="border-b hover:bg-gray-50">
+                  <td className="p-2">
+                    <Link
+                      href={`/products/${product.id}`}
+                      className="text-blue-600 hover:underline"
+                    >
+                      {product.name}
+                    </Link>
+                  </td>
+                  <td className="p-2">{product.sku}</td>
+                  <td className="p-2 text-right">{product.quantity}</td>
+                  <td className="p-2">{product.category || "未分類"}</td>
+                  <td className="p-2">{product.location || "未設定"}</td>
+                </tr>
+              )
+            )
           ) : (
             <tr>
               <td colSpan={5} className="text-center p-4 text-gray-500">

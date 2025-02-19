@@ -102,7 +102,7 @@ export default function ProductCreate() {
           >
             <option value="0">未分類</option>
             {categories &&
-              categories.map((category: any) => (
+              categories.map((category: { id: number; name: string }) => (
                 <option key={category.id} value={category.id}>
                   {category.name}
                 </option>

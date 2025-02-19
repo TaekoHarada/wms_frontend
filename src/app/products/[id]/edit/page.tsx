@@ -52,7 +52,7 @@ export default function ProductEdit() {
   useEffect(() => {
     if (categories && product) {
       const categoryExists = categories.some(
-        (cat: any) => cat.id === product.category_id
+        (cat: { id: number }) => cat.id === product.category_id
       );
 
       setFormData((prev) => ({
@@ -143,7 +143,7 @@ export default function ProductEdit() {
             className="border p-2 w-full rounded-md"
           >
             <option value="0">未分類</option>
-            {categories.map((category: any) => (
+            {categories.map((category: { id: number; name: string }) => (
               <option key={category.id} value={category.id}>
                 {category.name}
               </option>
