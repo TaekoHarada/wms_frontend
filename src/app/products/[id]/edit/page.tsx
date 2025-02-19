@@ -85,7 +85,7 @@ export default function ProductEdit() {
       alert("商品情報を更新しました");
       router.push(`/products/${id}`);
     } catch (error) {
-      alert("商品更新に失敗しました");
+      console.error("Product update error:", error);
     }
   };
 

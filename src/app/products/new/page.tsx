@@ -41,6 +41,7 @@ export default function ProductCreate() {
       alert("✅ 商品を追加しました");
       router.push("/products"); // 商品一覧へ遷移
     } catch (error) {
+      console.error("商品追加に失敗:", error);
       alert("❌ 商品追加に失敗しました");
     }
   };
