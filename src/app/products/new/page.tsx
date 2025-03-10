@@ -24,9 +24,12 @@ export default function ProductCreate() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
+    const { name, value, type } = e.target;
+
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]:
+        type === "number" || name === "category_id" ? Number(value) : value, // ✅ 数値の項目を変換
     });
   };
 
@@ -37,6 +40,7 @@ export default function ProductCreate() {
       await addProduct({
         ...formData,
         category_id: formData.category_id ? Number(formData.category_id) : 0,
+        quantity: formData.quantity ? Number(formData.quantity) : 0,
       });
       alert("✅ 商品を追加しました");
       router.push("/products"); // 商品一覧へ遷移

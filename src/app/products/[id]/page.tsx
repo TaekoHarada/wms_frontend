@@ -10,7 +10,6 @@ export default function ProductDetail() {
   const { data, error } = useSWR(id ? `/products/${id}` : null, () =>
     id ? fetchProductById(id as string) : null
   );
-
   if (error)
     return <div className="text-red-500">データの取得に失敗しました</div>;
   if (!data) return <div>データを読み込み中...</div>;

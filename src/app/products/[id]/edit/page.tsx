@@ -69,7 +69,8 @@ export default function ProductEdit() {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: name === "category_id" ? Number(value) : value, // category_id は数値に変換
+      [name]: name === "category_id" ? Number(value) : value,
+      [name]: name === "quantity" ? Number(value) : value,
     }));
   };
 
@@ -79,7 +80,8 @@ export default function ProductEdit() {
     try {
       await updateProduct(id as string, {
         ...formData,
-        category_id: Number(formData.category_id) || 0, // 確実に数値
+        category_id: Number(formData.category_id) || 0,
+        quantity: Number(formData.quantity) || 0,
       });
 
       alert("商品情報を更新しました");

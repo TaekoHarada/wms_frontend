@@ -30,6 +30,7 @@ export async function addProduct(product: {
   quantity: number;
   location?: string;
 }) {
+  console.log("product", product);
   try {
     const response = await axiosInstance.post("/products", product);
     return response.data;
